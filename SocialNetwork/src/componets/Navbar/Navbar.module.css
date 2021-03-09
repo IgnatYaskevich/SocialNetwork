@@ -1,0 +1,14 @@
+.nav {
+    grid-area: n;
+    background-color: azure;
+    padding: 20px;
+}
+
+.item a {
+    color: black;
+    text-decoration: none;
+}
+
+.item a.link{
+    color: gold;
+}
