@@ -7,40 +7,46 @@ import {BrowserRouter, Route} from "react-router-dom"
 import News from "./componets/News/News";
 import Music from "./componets/Music/Music";
 import Settings from "./componets/Settings/Settings";
-import Profile from './componets/ProFile/Profile';
-import state, {changeNewTextPost, ProfilePageType, RootStateType} from "./redux/State";
+import {StoreType} from "./redux/Store";
+import {Profile} from './componets/ProFile/Profile';
+import {store} from "./redux/redux-store";
+
 
 type AppType = {
-    state: RootStateType
-    addPost: (postMessage: string) => void
-    upDateNewPostText: (newText: string) => void
-
+    store: StoreType
 }
-const App = (props: AppType) => {
-    // @ts-ignore
+
+export const App: React.FC<AppType> = (props) => {
+    const state = props.store.getState()
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header1/>
                 <Navbar/>
                 <div className='app-wrapper-content '>
-                    <Route path={'/dialogs'} render={() => <Dialogs
-                        dialogs={props.state.dialogsPage.dialogs}
-                        messages={props.state.dialogsPage.messages}
-               />}/>
-                    {/*// с помощью стрелочной  ф-ии передаюм компанетну*/}
-                    <Route path={'/profile'} render={() => <Profile
-                        profilePage={props.state.profilePage}
-                        upDateNewPostText={changeNewTextPost}
-                        addPost={props.addPost}/>}/>
-                    <Route path={'/news'} render={() => <News/>}/>
-                    <Route path={'/music'} render={() => <Music/>}/>
-                    <Route path={'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/dialogs'} render={() =>
+                        <Dialogs dialogs={state.dialogsPage.dialogs}
+                                 messages={state.dialogsPage.messages}
+                                 newMessageBody={state.dialogsPage.newMessageBody}
+                                 dispatch={props.store.dispatch.bind(props.store)}
+                    />}/>
+
+                    <Route path={'/profile'} render={() =>
+                        <Profile profilePage={state.profilePage}
+                                 dispatch={props.store.dispatch.bind(store)}
+                        />}/>
+
+                    <Route path={'/news'} render={() =>
+                        <News/>}/>
+                    <Route path={'/music'} render={() =>
+                        <Music/>}/>
+                    <Route path={'/settings'} render={() =>
+                        <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>)
 }
 
 
-let app = App;
-export default app;
+// let app = App;
+// export default app;

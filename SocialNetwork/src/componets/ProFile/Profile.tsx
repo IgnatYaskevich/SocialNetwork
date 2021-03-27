@@ -1,24 +1,24 @@
 import React from "react"
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./MyPosts/PorfileInfo/ProfileInfo";
-import {changeNewTextPost, ProfilePageType} from "../../redux/State";
+import {ActionsTypes, ProfilePageType} from "../../redux/Store";
+import {store} from "../../redux/redux-store";
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
 type profilePropsType = {
-    // state: RootStateType
     profilePage: ProfilePageType
-    addPost: (postMessage: string) => void
-    upDateNewPostText: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
+
 }
-const Profile = (props: profilePropsType) => {
+export const Profile = (props: profilePropsType) => {
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts profilePage={props.profilePage}
-                     onChange={changeNewTextPost}
-                     addPost={props.addPost}/>
+            <MyPostsContainer profilePage={props.profilePage}
+                              dispatch={props.dispatch.bind(store)}
+                // addPost={props.addPost}
+            />
         </div>
     )
 }
-export default Profile;

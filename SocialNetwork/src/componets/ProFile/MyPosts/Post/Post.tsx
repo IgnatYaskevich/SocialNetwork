@@ -8,7 +8,7 @@ const Post = (props: any) => {
             <div className={s.item}>
 
                 <img
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmu47Tzi-9snKDIgESxyXseGsGpnzPnssk5g&usqp=CAU'/>
+                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmu47Tzi-9snKDIgESxyXseGsGpnzPnssk5g&usqp=CAU' alt={'s'}/>
                 {props.message}
                 <div>
                     <span>like </span>
