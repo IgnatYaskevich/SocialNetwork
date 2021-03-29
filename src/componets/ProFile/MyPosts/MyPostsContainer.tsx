@@ -1,41 +1,35 @@
 import React from "react"
-import {ActionsTypes, PostsType, ProfilePageType, RootStateType} from "../../../redux/Store";
+import {PostsType, RootStateType} from "../../../redux/Store";
 import {addPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
-import MyPosts from "./MyPosts";
+
 import {connect} from "react-redux";
 import {Dispatch} from 'redux'
+import {MyPosts} from "./MyPosts";
 
 
+// export const MyPostsContainer = (props: PropsType) => {
+//     let addPost = () => {
+//         props.addPost()
+//     }
+//     let onPostChange = (text: string) => {
+//         props.onPostChange(text)
+//     }
+//     return (<MyPosts
+//         posts={props.posts}
+//         newPostText={props.newPostText}
+//         addPost={addPost}
+//         onPostChange={onPostChange}
+//     />)
+// }
 type MapStateType = {
     newPostText: string,
     posts: Array<PostsType>
 }
-
 type MapDispatchType = {
-    addPost: () =>void,
+    addPost: () => void,
     onPostChange: (text: string) => void
 }
-
-type OwnProps = {}
-
-type PropsType = MapDispatchType & MapStateType & OwnProps
-
-
-export const MyPostsContainer = (props: PropsType) => {
-    let addPost = () => {
-        props.addPost()
-    }
-    let onPostChange = (text: string) => {
-        props.onPostChange(text)
-    }
-    return (<MyPosts
-        posts={props.posts}
-        NewPostText={props.newPostText}
-        addPost={addPost}
-        onPostChange={onPostChange}
-    />)
-}
-
+export type PropsType = MapDispatchType & MapStateType & {}
 
 let mapStateToProps = (state: RootStateType): MapStateType => {
     return {
@@ -44,17 +38,15 @@ let mapStateToProps = (state: RootStateType): MapStateType => {
     }
 }
 
-
 let MapDispatchToPropsParam = (dispatch: Dispatch): MapDispatchType => {
     return {
         addPost: () => {
-           dispatch(addPostCreator())
+            dispatch(addPostCreator())
         },
         onPostChange: (text: string) => {
-           dispatch(updateNewPostTextCreator(text))
+            dispatch(updateNewPostTextCreator(text))
         }
     }
 }
-const SuperMyPostContainer = connect<MapStateType, MapDispatchType, OwnProps, RootStateType>(mapStateToProps, MapDispatchToPropsParam)(MyPostsContainer);
+export const MyPostContainer = connect<MapStateType, MapDispatchType, {}, RootStateType>(mapStateToProps, MapDispatchToPropsParam)(MyPosts);
 
-export default SuperMyPostContainer

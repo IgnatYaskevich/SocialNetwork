@@ -56,7 +56,6 @@ export const updateNewMessageBodyCreator = (body: string) => {
     return (
         {
             type: UPDATE_NEW_MESSAGE_BODY,
-
             newBody: body
         } as const
     )

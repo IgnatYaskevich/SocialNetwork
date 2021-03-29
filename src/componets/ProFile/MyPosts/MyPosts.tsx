@@ -6,12 +6,12 @@ import Post from "./Post/Post";
 
 type MyPostsPropsType = {
     posts: PostsType[]
-    NewPostText: string
+    newPostText: string
     addPost: () => void
     onPostChange: (text: string) => void
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+export  const MyPosts = (props: MyPostsPropsType) => {
     let postsElement = props.posts.map(p => <Post key={p.id}
                                                   message={p.message}
                                                   likeCounts={p.likesCount}
@@ -30,7 +30,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 <h2>My posts</h2>
                 <div>
                     {/* Привязываем созданную ссылку */}
-                    <textarea value={props.NewPostText}
+                    <textarea value={props.newPostText}
                               ref={newPostElement}
                               onChange={onPostChange}
                               placeholder='Add your post'/>
@@ -45,4 +45,3 @@ const MyPosts = (props: MyPostsPropsType) => {
         </div>
     )
 }
-export default MyPosts;
