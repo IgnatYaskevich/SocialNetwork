@@ -6,7 +6,7 @@ import {App} from './App';
 import {store} from "./redux/redux-store";
 import {Provider} from "react-redux";
 
-export let rerenderEntireTree = () => {
+// export let rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <Provider store={store}>
@@ -15,10 +15,10 @@ export let rerenderEntireTree = () => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
+// }
 
-store.subscribe(rerenderEntireTree)
-rerenderEntireTree()
+// store.subscribe(rerenderEntireTree)
+// rerenderEntireTree()
 
 // rerenderEntireTree(state)
 

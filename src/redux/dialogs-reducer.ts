@@ -33,12 +33,15 @@ let initialState = {
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
     if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        state.newMessageBody = action.newBody
-
+        let stateCopy = {...state, }
+        stateCopy.newMessageBody = action.newBody
+    return stateCopy
     } else if (action.type === SEND_MESSAGE) {
         let body = state.newMessageBody
-        state.newMessageBody = ''
-        state.messages.push({id: v1(), message: body})
+        let stateCopy = {...state, messages: [...state.messages] }
+        stateCopy.newMessageBody = ''
+        stateCopy.messages.push({id: v1(), message: body})
+        return stateCopy
     }
 
     return state
