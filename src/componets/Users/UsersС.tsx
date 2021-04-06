@@ -1,9 +1,9 @@
 import React from "react";
-import {v1} from "uuid";
 import {UsersPropsType} from "../../redux/users-reducer";
-import styles from './users.module.css'
+import {v1} from "uuid";
+import userPhoto from "../../images/images.png";
+import styles from "./users.module.css";
 import axios from "axios";
-import userPhoto from '../../images/images.png'
 
 
 type PropsType = {
@@ -13,20 +13,25 @@ type PropsType = {
     users: UsersPropsType[]
 }
 
-export const Users = (props: PropsType) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
+export class UsersC extends React.Component<PropsType, {}> {  // какие данные приходт в пропсах
+    constructor(props: any) {
+        super(props);
+        if (this.props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => {
-                    props.setUsers(response.data.items)
+                    this.props.setUsers(response.data.items)
                 })
         }
     }
-    return (
-        <div>
-            <button onClick={getUsers}>get users</button>
+
+    getUsers = () => {
+
+    }
+
+    render() {
+        return <div>
             {
-                props.users.map(u => <div key={v1()}>
+                this.props.users.map(u => <div key={v1()}>
                     <span>
                         <div>
                             <img
@@ -36,10 +41,10 @@ export const Users = (props: PropsType) => {
                           <div>
                               {u.followed
                                   ? <button onClick={() => {
-                                      props.follow(u.id)
+                                      this.props.follow(u.id)
                                   }}>Follow</button>
                                   : <button onClick={() => {
-                                      props.unFollow(u.id)
+                                      this.props.unFollow(u.id)
                                   }}>Unfollow</button>}
                         </div>
                     </span>
@@ -57,24 +62,6 @@ export const Users = (props: PropsType) => {
                 )
             }
         </div>
-    )
+    }
 }
 
-
-// props.setUsers([
-//     {
-//         id: v1(), followed: true, fullName: 'Ignat', status: 'I am a boss',
-//         location: {city: 'Minsk', country: 'Belarus'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg"
-//     },
-//     {
-//         id: v1(), followed: false, fullName: 'Sacha', status: 'I am a boss tooa',
-//         location: {city: 'Moscow', country: 'Russia'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg",
-//     },
-//     {
-//         id: v1(), followed: false, fullName: 'Rashid', status: 'I am a boss too',
-//         location: {city: 'Kair', country: 'Egipt'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg"
-//     }
-// ])
