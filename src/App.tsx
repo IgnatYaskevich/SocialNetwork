@@ -9,7 +9,7 @@ import Settings from "./componets/Settings/Settings";
 import {Profile} from './componets/ProFile/Profile';
 
 import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
-import UsersContainer from "./componets/users/UsersContainer";
+import UsersContainer from "./componets/Users/UsersContainer";
 
 
 
@@ -26,7 +26,7 @@ export const App: React.FC<any> = () => {
                     }/>
                     <Route path={'/profile'} render={() =>
                         <Profile/>}/>
-                    <Route path={'/users'} render={() =>
+                    <Route path={'/Users'} render={() =>
                         <UsersContainer/>}/>
                     <Route path={'/news'} render={() =>
                         <News/>}/>

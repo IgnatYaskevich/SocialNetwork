@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react"
 import s from './MyPosts.module.css'
-import {PostsType} from "../../../redux/Store";
+
 import Post from "./Post/Post";
+import {PostsType} from "../../../redux/profile-reducer";
 
 
 type MyPostsPropsType = {
@@ -10,6 +11,7 @@ type MyPostsPropsType = {
     addPost: () => void
     onPostChange: (text: string) => void
 }
+
 
 export  const MyPosts = (props: MyPostsPropsType) => {
     let postsElement = props.posts.map(p => <Post key={p.id}

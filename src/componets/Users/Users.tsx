@@ -1,6 +1,6 @@
 import React from "react";
-import {UsersPropsType} from "../../redux/Store";
 import {v1} from "uuid";
+import {UsersPropsType} from "../../redux/users-reducer";
 import styles from './users.module.css'
 
 type PropsType = {

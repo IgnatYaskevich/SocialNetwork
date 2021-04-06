@@ -1,6 +1,17 @@
-import {UsersPageType, UsersPropsType} from "./Store";
-import {v1} from "uuid";
-
+export type UsersPropsType = {
+    id: string,
+    followed: boolean,
+    photoUrl: string
+    fullName: string,
+    status: string,
+    location: {
+        city: string,
+        country: string
+    }
+}
+export type UsersPageType = {
+    users: UsersPropsType[]
+}
 
 export const initialState: UsersPageType = {
     users: []

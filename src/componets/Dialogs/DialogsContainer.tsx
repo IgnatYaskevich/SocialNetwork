@@ -1,18 +1,17 @@
 import React from "react";
-import {DialogsPageType} from "../../redux/Store";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {DialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {Dialogs} from "./Dialogs";
 import {AppStateType} from "../../redux/redux-store";
 
 
-type MapStateToPropsType ={
+type MapStateToPropsType = {
     dialogPage: DialogsPageType
 }
-type  MaDispatchToPropsType ={
-    updateNewMessageBody: (body: string)=>void
-    sendMessage: (newMessageBody: string)=>void
+type  MaDispatchToPropsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: (newMessageBody: string) => void
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -30,4 +29,4 @@ let mapDispatchToProps = (dispatch: Dispatch): MaDispatchToPropsType => {
         }
     }
 }
-export const DialogsContainer = connect<MapStateToPropsType,MaDispatchToPropsType,{},AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect<MapStateToPropsType, MaDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs)

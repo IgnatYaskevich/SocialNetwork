@@ -1,7 +1,18 @@
-import {ActionsTypes, PostsType} from "./Store";
+
 import {v1} from "uuid";
 
+import {ActionsTypes} from "./Store_Actions";
 
+
+export type PostsType = {
+    id: string
+    message: string
+    likesCount: number
+}
+export type ProfilePageType = {
+    posts: PostsType[]
+    NewPostText: string
+}
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
