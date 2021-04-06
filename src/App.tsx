@@ -9,6 +9,8 @@ import Settings from "./componets/Settings/Settings";
 import {Profile} from './componets/ProFile/Profile';
 
 import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
+import UsersContainer from "./componets/users/UsersContainer";
+
 
 
 export const App: React.FC<any> = () => {
@@ -20,17 +22,12 @@ export const App: React.FC<any> = () => {
                 <Navbar/>
                 <div className='app-wrapper-content '>
                     <Route path={'/dialogs'} render={() =>
-                    //     <Dialogs dialogs={state.dialogsPage.dialogs}
-                    //              messages={state.dialogsPage.messages}
-                    //              newMessageBody={state.dialogsPage.newMessageBody}
-                    //              dispatch={props.store.dispatch.bind(props.store)}
-                    // />}/>
-                    <DialogsContainer />
+                        <DialogsContainer/>
                     }/>
-
                     <Route path={'/profile'} render={() =>
                         <Profile/>}/>
-
+                    <Route path={'/users'} render={() =>
+                        <UsersContainer/>}/>
                     <Route path={'/news'} render={() =>
                         <News/>}/>
                     <Route path={'/music'} render={() =>

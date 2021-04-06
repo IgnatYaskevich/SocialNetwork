@@ -7,7 +7,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 type InitialStateType = {
     posts: PostsType[]
-    NewPostText: string
+    newPostText: string
 }
 
 let initialState: InitialStateType = {
@@ -17,40 +17,40 @@ let initialState: InitialStateType = {
         {id: v1(), message: `It's my first post`, likesCount: 23},
         {id: v1(), message: `It's my first post`, likesCount: 23},
     ],
-    NewPostText: '',
+    newPostText: '',
 }
 
 
-const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
 
     if (action.type === 'ADD-POST') {
         const newPost: PostsType = {
             id: v1(),
-            message: state.NewPostText,
+            message: state.newPostText,
             likesCount: 0
         }
         let stateCopy = {...state, posts: [...state.posts]}
         stateCopy.posts.push(newPost)
-        stateCopy.NewPostText = ''
+        stateCopy.newPostText = ''
         return stateCopy
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
         let stateCopy = {...state}
-        stateCopy.NewPostText = action.newText
+        stateCopy.newPostText = action.newText
         return stateCopy
     }
     return state
 }
 
 
-export const addPostCreator = () => {
+export const addPostAC = () => {
     return (
         {
             type: ADD_POST
         } as const
     )
 }
-export const updateNewPostTextCreator = (newText: string) => {
+export const updateNewPostTextAC = (newText: string) => {
     return (
         {
             type: UPDATE_NEW_POST_TEXT,
@@ -59,4 +59,3 @@ export const updateNewPostTextCreator = (newText: string) => {
     )
 }
 
-export default profileReducer

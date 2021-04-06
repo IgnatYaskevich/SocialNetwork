@@ -30,15 +30,15 @@ let initialState = {
     newMessageBody: ''
 }
 
-const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+export  const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
     if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        let stateCopy = {...state, }
+        let stateCopy = {...state,}
         stateCopy.newMessageBody = action.newBody
-    return stateCopy
+        return stateCopy
     } else if (action.type === SEND_MESSAGE) {
         let body = state.newMessageBody
-        let stateCopy = {...state, messages: [...state.messages] }
+        let stateCopy = {...state, messages: [...state.messages]}
         stateCopy.newMessageBody = ''
         stateCopy.messages.push({id: v1(), message: body})
         return stateCopy
@@ -64,4 +64,3 @@ export const updateNewMessageBodyCreator = (body: string) => {
     )
 }
 
-export default dialogsReducer
