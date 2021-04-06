@@ -1,7 +1,7 @@
 
 import {v1} from "uuid";
 
-import {ActionsTypes} from "./Store_Actions";
+import {ActionsTypes} from "./Actions";
 
 
 export type PostsType = {

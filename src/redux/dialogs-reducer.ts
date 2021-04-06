@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsTypes} from "./Store_Actions";
+import {ActionsTypes} from "./Actions";
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';

@@ -1,14 +1,29 @@
+
+// export type UsersPropsType = {
+//     id: string,
+//     followed: boolean,
+//     photoUrl: string
+//     fullName: string,
+//     status: string,
+//     location: {
+//         city: string,
+//         country: string
+//     }
+// }
+
 export type UsersPropsType = {
+    name: string
     id: string,
-    followed: boolean,
-    photoUrl: string
-    fullName: string,
-    status: string,
-    location: {
-        city: string,
-        country: string
+    uniqueUrlName: string,
+    photos: {
+        small: string,
+        large: string
     }
+    status: string,
+    followed: boolean,
+
 }
+
 export type UsersPageType = {
     users: UsersPropsType[]
 }
