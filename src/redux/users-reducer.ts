@@ -1,4 +1,3 @@
-
 // export type UsersPropsType = {
 //     id: string,
 //     followed: boolean,
@@ -21,22 +20,32 @@ export type UsersPropsType = {
     }
     status: string,
     followed: boolean,
-
 }
-
 export type UsersPageType = {
     users: UsersPropsType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+}
+export const initialState: UsersPageType = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
 }
 
-export const initialState: UsersPageType = {
-    users: []
-}
+
+type ActionTypes = ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUserCountAC>
 
 const FOLlOW = 'FOLlOW';
 const UN_FOLlOW = 'UN_FOLlOW';
 const SET_USERS = 'SET_USERS';
-
-type ActionTypes = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 export const usersReducer = (state = initialState, action: ActionTypes): UsersPageType => {
     switch (action.type) {
@@ -63,13 +72,22 @@ export const usersReducer = (state = initialState, action: ActionTypes): UsersPa
         case SET_USERS : {
             return {...state, users: [...action.users]}
         }
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return {...state, totalUsersCount: action.totalUsersCount}
+        }
         default :
             return state
     }
 }
 
 
+
+
 export const followAC = (userId: string) => ({type: FOLlOW, userId} as const)
 export const unFollowAC = (userId: string) => ({type: UN_FOLlOW, userId} as const)
 export const setUsersAC = (users: Array<UsersPropsType>) => ({type: SET_USERS, users} as const)
-
+export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUserCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
