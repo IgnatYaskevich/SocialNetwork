@@ -12,7 +12,6 @@ import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 import UsersContainer from "./componets/Users/UsersContainer";
 
 
-
 export const App: React.FC<any> = () => {
     // const state = props.store.getState()
     return (
@@ -26,7 +25,7 @@ export const App: React.FC<any> = () => {
                     }/>
                     <Route path={'/profile'} render={() =>
                         <Profile/>}/>
-                    <Route path={'/Users'} render={() =>
+                    <Route path={'/UsersFuntionComponent'} render={() =>
                         <UsersContainer/>}/>
                     <Route path={'/news'} render={() =>
                         <News/>}/>

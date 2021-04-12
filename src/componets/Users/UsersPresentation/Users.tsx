@@ -1,30 +1,46 @@
 import React from "react";
+import styles from "../users.module.css";
 import {v1} from "uuid";
-import {UsersPropsType} from "../../redux/users-reducer";
-import styles from './users.module.css'
-import axios from "axios";
-import userPhoto from '../../images/images.png'
-
+import userPhoto from "../../../images/images.png";
+import {UsersPropsType} from "../../../redux/users-reducer";
 
 type PropsType = {
     follow: (userId: string) => void
     unFollow: (userId: string) => void
     setUsers: (users: Array<UsersPropsType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalCount: number) => void
     users: UsersPropsType[]
+    pageSize: number
+    totalUSerCount: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+
 }
 
 export const Users = (props: PropsType) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    props.setUsers(response.data.items)
-                })
-        }
+    let pagesCount = Math.ceil(props.totalUSerCount / props.pageSize)
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
     return (
         <div>
-            <button onClick={getUsers}>get users</button>
+            <div>
+                {pages.map(p => {
+                    return (
+                        <span className={props.currentPage === p ? styles.selectedPage : ''}
+                              onClick={(e) => {
+                                  props.onPageChanged(p)
+                              }}>{p}</span>
+                    )
+                })}
+                {/*<span>1</span>*/}
+                {/*<span className={styles.selectedPage}>2</span>*/}
+                {/*<span>3</span>*/}
+                {/*<span>4</span>*/}
+                {/*<span>5</span>*/}
+            </div>
             {
                 props.users.map(u => <div key={v1()}>
                     <span>
@@ -60,21 +76,3 @@ export const Users = (props: PropsType) => {
     )
 }
 
-
-// props.setUsers([
-//     {
-//         id: v1(), followed: true, fullName: 'Ignat', status: 'I am a boss',
-//         location: {city: 'Minsk', country: 'Belarus'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg"
-//     },
-//     {
-//         id: v1(), followed: false, fullName: 'Sacha', status: 'I am a boss tooa',
-//         location: {city: 'Moscow', country: 'Russia'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg",
-//     },
-//     {
-//         id: v1(), followed: false, fullName: 'Rashid', status: 'I am a boss too',
-//         location: {city: 'Kair', country: 'Egipt'},
-//         photoUrl: "https://pbs.twimg.com/media/EcZzOJbXgAEpndc.jpg"
-//     }
-// ])
