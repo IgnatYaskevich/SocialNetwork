@@ -7,12 +7,15 @@ import {MyPostContainer} from "./MyPosts/MyPostsContainer";
 //     profilePage: ProfilePageType
 //     dispatch: (action: ActionsTypes) => void
 //
-// }
-export const Profile = () => {
-
+//
+//}
+export type ProfileTypeProps = {
+    profile: any
+}
+export const Profile = (props: ProfileTypeProps) => {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostContainer />
         </div>
     )

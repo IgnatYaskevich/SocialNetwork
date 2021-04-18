@@ -11,7 +11,8 @@ let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+
 })
 
 export const store = createStore(rootReducers)

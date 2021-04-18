@@ -3,6 +3,8 @@ import styles from "../users.module.css";
 import {v1} from "uuid";
 import userPhoto from "../../../images/images.png";
 import {UsersPropsType} from "../../../redux/users-reducer";
+import Navbar from "../../Navbar/Navbar";
+import {NavLink} from "react-router-dom";
 
 type PropsType = {
     follow: (userId: string) => void
@@ -35,19 +37,17 @@ export const Users = (props: PropsType) => {
                               }}>{p}</span>
                     )
                 })}
-                {/*<span>1</span>*/}
-                {/*<span className={styles.selectedPage}>2</span>*/}
-                {/*<span>3</span>*/}
-                {/*<span>4</span>*/}
-                {/*<span>5</span>*/}
             </div>
             {
                 props.users.map(u => <div key={v1()}>
                     <span>
                         <div>
-                            <img
-                                src={u.photos.small === '' ? u.photos.small : userPhoto}
-                                className={styles.photo} alt={'Avatar'}/>
+                            <NavLink to={'/profile/' + u.id}>
+
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={styles.photo} alt={'Avatar'}/>
+
+                                </NavLink>
                         </div>
                           <div>
                               {u.followed

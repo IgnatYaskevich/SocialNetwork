@@ -6,10 +6,10 @@ import {BrowserRouter, Route} from "react-router-dom"
 import News from "./componets/News/News";
 import Music from "./componets/Music/Music";
 import Settings from "./componets/Settings/Settings";
-import {Profile} from './componets/ProFile/Profile';
 
 import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
-import UsersContainer from "./componets/Users/UsersContainer";
+import UsersContainer from './componets/Users/UsersContainer';
+import ProfileContainer from "./componets/ProFile/ProfileContainer";
 
 
 export const App: React.FC<any> = () => {
@@ -24,7 +24,7 @@ export const App: React.FC<any> = () => {
                         <DialogsContainer/>
                     }/>
                     <Route path={'/profile'} render={() =>
-                        <Profile/>}/>
+                        <ProfileContainer/>}/>
                     <Route path={'/UsersFuntionComponent'} render={() =>
                         <UsersContainer/>}/>
                     <Route path={'/news'} render={() =>
