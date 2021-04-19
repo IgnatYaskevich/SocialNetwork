@@ -1,15 +1,13 @@
 import React from "react";
 import s from './ProfileIndo.module.css'
-import {ProfileTypeProps} from "../../Profile";
-import {Preloader} from "../../../common/Preloader/Preloader";
+import {ProfileType} from "../../../../redux/profile-reducer";
 
+type PropsType = {
+    profile: ProfileType
+}
 
-const ProfileInfo = (props: ProfileTypeProps) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
+const ProfileInfo = (props: PropsType) => {
 
-    debugger
     return (
         <div>
             <div>

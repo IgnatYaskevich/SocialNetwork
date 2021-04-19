@@ -7,27 +7,32 @@ export type PostsType = {
     message: string
     likesCount: number
 }
-export type  ProfilePropsType = {
-    aboutMe: string
-    contacts: {
-        facebook: string
-        website: null,
-        vk: string
-        twitter: string,
-        instagram: string,
-        youtube: null,
-        github: string
-        mainLink: null
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
+
+
+type PhotosType= {
+    small:string
+    large: string
 }
+
+export type ContactsType = {
+    github:string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter:string
+    website:string
+    youtube:string
+    mainLink:string
+}
+export type ProfileType =  {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription:string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -36,7 +41,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE'
 type InitialStateType = {
     posts: PostsType[]
     newPostText: string
-    profile: string
+    profile: null | ProfileType
 }
 
 let initialState: InitialStateType = {
@@ -47,7 +52,7 @@ let initialState: InitialStateType = {
         {id: v1(), message: `It's my first post`, likesCount: 23},
     ],
     newPostText: '',
-    profile: ''
+    profile: null
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -76,5 +81,5 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 
 export const addPostAC = () => ({type: ADD_POST}) as const
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
-export const setUserProfile = (profile: string) => ({type: SET_USER_PROFILE, profile}) as const
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 
