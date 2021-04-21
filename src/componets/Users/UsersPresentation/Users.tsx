@@ -5,6 +5,7 @@ import userPhoto from "../../../images/images.png";
 import {UsersPropsType} from "../../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {getUsers} from "../../../api/api";
 
 type PropsType = {
     follow: (userId: string) => void
@@ -53,34 +54,35 @@ export const Users = (props: PropsType) => {
                               {u.followed
                                   ? <button onClick={() => {
                                       props.unFollow(u.id)
-                                      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                          {
-                                              withCredentials: true,
-                                              headers: {
-                                                  'API-KEY': '9c834141-c332-4d1d-a35e-d6573784e0c2'
-                                              }
-                                          })
-                                          .then(response => {
-                                              if (response.data.resultCode === 0) {
-                                                  props.unFollow(u.id)
-                                              }
-                                          })
+                                      // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                      //     {
+                                      //         // withCredentials: true,
+                                      //         // headers: {
+                                      //         //     'API-KEY': '9c834141-c332-4d1d-a35e-d6573784e0c2'
+                                      //         // }
+                                      //     })
+                                      getUsers().then(data => {
+                                          if (data.resultCode === 0) {
+                                              props.unFollow(u.id)
+                                          }
+                                      })
 
                                   }}>Unfollow</button>
-                                  : <button onClick={() => {
-                                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                          {},
-                                          {
-                                              withCredentials: true,
-                                              headers: {
-                                                  'API-KEY': '9c834141-c332-4d1d-a35e-d6573784e0c2'
-                                              }
-                                          })
-                                          .then(response => {
-                                              if (response.data.resultCode === 0) {
-                                                  props.follow(u.id)
-                                              }
-                                          })
+                                  :
+                                  <button onClick={() => {
+                                      // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                      //     {},
+                                      //     {
+                                      //         // withCredentials: true,
+                                      //         // headers: {
+                                      //         //     'API-KEY': '9c834141-c332-4d1d-a35e-d6573784e0c2'
+                                      //         // }
+                                      //     })
+                                      getUsers().then(data => {
+                                          if (data.resultCode === 0) {
+                                              props.follow(u.id)
+                                          }
+                                      })
 
                                   }}>Follow</button>}
                                   </div>
