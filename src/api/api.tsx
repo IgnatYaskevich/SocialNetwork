@@ -24,3 +24,15 @@ export const getUsers = (currentPage = 1, pageSize = 10) => {
             return response.data
         })
 }
+export const deleteUsers = (id: string)=>{
+    return instance.delete(`follow/${id}`)
+        .then(response=>{
+            return response.data
+        })
+}
+export const postUsers = (id: string)=>{
+    return instance.post(`follow/${id}`)
+        .then(response=>{
+            return response.data
+        })
+}
