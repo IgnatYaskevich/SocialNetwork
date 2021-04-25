@@ -31,7 +31,7 @@ export const deleteUsers = (id: string)=>{
         })
 }
 export const postUsers = (id: string)=>{
-    return instance.post(`follow/${id}`)
+    return instance .post(`follow/${id}`)
         .then(response=>{
             return response.data
         })
