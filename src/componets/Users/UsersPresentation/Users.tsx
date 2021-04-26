@@ -31,7 +31,7 @@ export const Users = (props: PropsType) => {
                               key={v1()}
                               onClick={(e) => {
                                   props.onPageChanged(p)
-                              }}>{p}</span>
+                              }}>{p + ","}</span>
                     )
                 })}
             </div>

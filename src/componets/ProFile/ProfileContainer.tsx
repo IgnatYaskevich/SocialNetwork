@@ -1,11 +1,11 @@
 import React from "react"
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
+import {profileAPI} from "../../api/api";
 
 
 type MapStatePropsType = {
@@ -14,6 +14,7 @@ type MapStatePropsType = {
 }
 type PathParamsType = {
     userId: string
+
 }
 type OwnPropsType = MapStatePropsType    //
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
@@ -24,8 +25,8 @@ class ProfileContainer extends React.Component<PropsType, {}> {
         if (!userId) {
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+            profileAPI.profileUser(userId).then(response => {
                 this.props.setUserProfile(response.data)
             })
     }

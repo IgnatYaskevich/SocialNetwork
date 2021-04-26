@@ -1,5 +1,8 @@
 import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
+import {Dispatch} from "redux";
+import {profileAPI, usersAPI} from "../api/api";
+import {followSuccess, toggleFollowingProgress} from "./users-reducer";
 
 
 export type PostsType = {
@@ -9,25 +12,25 @@ export type PostsType = {
 }
 
 
-type PhotosType= {
-    small:string
+type PhotosType = {
+    small: string
     large: string
 }
 
 export type ContactsType = {
-    github:string
+    github: string
     vk: string
     facebook: string
     instagram: string
-    twitter:string
-    website:string
-    youtube:string
-    mainLink:string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
-export type ProfileType =  {
+export type ProfileType = {
     userId: number
     lookingForAJob: boolean
-    lookingForAJobDescription:string
+    lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
     photos: PhotosType
@@ -82,4 +85,16 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 export const addPostAC = () => ({type: ADD_POST}) as const
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+
+export const userProfile = (id: number) => {
+    return (dispatch: Dispatch) => {
+        let userId = +id
+        if (!userId) {
+            userId = 2
+        }
+        profileAPI.profileUser(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+    }
+}
 
