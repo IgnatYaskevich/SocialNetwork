@@ -1,18 +1,9 @@
 import {connect} from "react-redux";
-import {
-    follow,
-    setCurrentPage,
-    setTotalUserCount,
-    setUsers, toggleFollowingProgress,
-    toggleIsFetching,
-    unFollow,
-    UsersPropsType
-} from "../../redux/users-reducer";
+import {follow, getUsers, toggleFollowingProgress, unFollow, UsersPropsType} from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import {Users} from "./UsersPresentation/Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUsers} from "../../api/api";
 
 
 type MapStateToPropsType = {
@@ -23,50 +14,31 @@ type MapStateToPropsType = {
     isFetching: boolean
     followingImProgress: string[]
 }
-// type MapDispatchToPropsType = {
-//     follow: (userId: string) => void
-//     unFollow: (userId: string) => void
-//     setUsers: (users: Array<UsersPropsType>) => void
-//     setCurrentPage: (pageNumber: number) => void
-//     setTotalUsersCount: (totalCount: number) => void
-//     toggleIsFetching: (isFetching: boolean) => void
-// }
-type PropsType = {
+type MapDispatchToPropsType = {
     follow: (userId: string) => void
     unFollow: (userId: string) => void
-    setUsers: (users: Array<UsersPropsType>) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUserCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean, userId: string) => void
-    users: UsersPropsType[]
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    isFetching: boolean
-    followingImProgress: string[]
+    getUsers: (currentPage: number, pageSize: number) => void
 }
+type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
 export class UsersContainer extends React.Component<PropsType, {}> {
+
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-
-        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUserCount(data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.toggleIsFetching(true)
 
-        getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsers(pageNumber, this.props.pageSize)
+
+        // this.props.setCurrentPage(pageNumber)
+        // this.props.toggleIsFetching(true)
+        //
+        // getUsers(pageNumber, this.props.pageSize).then(data => {
+        //     this.props.toggleIsFetching(false)
+        //     this.props.setUsers(data.items)
+        // })
     }
 
     render() {
@@ -80,10 +52,6 @@ export class UsersContainer extends React.Component<PropsType, {}> {
                        users={this.props.users}
                        follow={this.props.follow}
                        unFollow={this.props.unFollow}
-                       setCurrentPage={this.props.setCurrentPage}
-                       setTotalUsersCount={this.props.setTotalUserCount}
-                       setUsers={this.props.setUsers}
-                       toggleFollowingProgress={this.props.toggleFollowingProgress}
                        followingImProgress={this.props.followingImProgress}
                 />
             </>
@@ -103,14 +71,8 @@ let
         }
     }
 
-export default connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUserCount,
-    toggleIsFetching,
-    toggleFollowingProgress
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+    follow, unFollow, toggleFollowingProgress, getUsers
 })(UsersContainer)
 
 // let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
@@ -133,7 +95,5 @@ export default connect(mapStateToProps, {
 //             toggleIsFetching: (isFetching: boolean) => {
 //                 dispatch(toggleIsFetchingAC(isFetching))
 //             }
-//
-//
 //         }
 //     }

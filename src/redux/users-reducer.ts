@@ -1,14 +1,5 @@
-// export type UsersPropsType = {
-//     id: string,
-//     followed: boolean,
-//     photoUrl: string
-//     fullName: string,
-//     status: string,
-//     location: {
-//         city: string,
-//         country: string
-//     }
-// }
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type UsersPropsType = {
     name: string
@@ -50,8 +41,8 @@ export const initialState: UsersPageType = {
 }
 
 
-type ActionTypes = ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
+type ActionTypes = ReturnType<typeof followSuccess>
+    | ReturnType<typeof unFollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUserCount>
@@ -97,7 +88,7 @@ export const usersReducer = (state = initialState, action: ActionTypes): UsersPa
             return {
                 ...state, followingImProgress: action.isFetching
                     ? [...state.followingImProgress, action.userId]
-                    : state.followingImProgress.filter(id => id != action.userId)
+                    : state.followingImProgress.filter(id => id !== action.userId)
             }
         }
         default :
@@ -106,8 +97,8 @@ export const usersReducer = (state = initialState, action: ActionTypes): UsersPa
 }
 
 
-export const follow = (userId: string) => ({type: FOLlOW, userId} as const)
-export const unFollow = (userId: string) => ({type: UN_FOLlOW, userId} as const)
+export const followSuccess = (userId: string) => ({type: FOLlOW, userId} as const)
+export const unFollowSuccess = (userId: string) => ({type: UN_FOLlOW, userId} as const)
 export const setUsers = (users: Array<UsersPropsType>) => ({type: SET_USERS, users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUserCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
@@ -117,3 +108,44 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: string) => 
     isFetching,
     userId
 } as const)
+
+// ThunkCreator - ф-ия которая может принимать данные и return thunk
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUserCount(data.totalCount))
+        })
+    }
+}
+export const unFollow = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        // dispatch(unFollowSuccess(userId))
+        dispatch(toggleFollowingProgress(true, userId))
+
+        usersAPI.follow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowSuccess(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
+    }
+}
+export const follow = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        // dispatch(followSuccess(userId))
+        dispatch(toggleFollowingProgress(true, userId))
+
+        usersAPI.unFollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}

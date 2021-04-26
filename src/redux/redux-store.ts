@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import sidebarReducer from "./sidebar-reducer";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
+import thunkMiddleware from "redux-thunk"
 
 
 export type AppStateType = ReturnType<typeof rootReducers>
@@ -16,5 +17,5 @@ let rootReducers = combineReducers({
     auth: authReducer
 
 })
-
-export const store = createStore(rootReducers)
+// applyMiddleware() - store  прими промежуточные слои (для запуска thunk)
+export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
