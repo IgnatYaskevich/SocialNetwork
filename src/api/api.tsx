@@ -27,25 +27,19 @@ export const usersAPI = {
             .then(response => {
                 return response.data
             })
-    }
-}
-
-export  const headerAPI={
-    authMe(){
-        return instance.get(`auth/me`,{
-            withCredentials: true
-        })
-            .then(response =>{
-                return response.data
+    },
+    getProfile(id: number) {
+        return instance.get(`profile/` + id)
+            .then(response => {
+                return response
             })
     }
 }
-
-export  const profileAPI = {
-    profileUser(id: number){
-        return instance.get(`profile/`+ id)
-            .then(response =>{
-                return response
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+            .then(response => {
+                return response.data
             })
     }
 }

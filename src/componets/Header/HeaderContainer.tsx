@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header1'
 import {connect} from 'react-redux';
-import {authMe, setAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserData} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
 // type HeaderContainerType = {
@@ -11,11 +11,11 @@ import {AppStateType} from "../../redux/redux-store";
 //
 // };
 type HeaderContainerPropsType = {
-    authMe : ()=>void
+    getAuthUserData : ()=>void
 }
 class HeaderContainer extends React.Component<HeaderContainerPropsType, {}> {
     componentDidMount() {
-        this.props.authMe()
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -31,4 +31,4 @@ const mapStateToProps = (state: AppStateType) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {setAuthUserData, authMe})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer)

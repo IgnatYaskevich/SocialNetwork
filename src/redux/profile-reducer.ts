@@ -1,8 +1,7 @@
 import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
 import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
-import {followSuccess, toggleFollowingProgress} from "./users-reducer";
+import {usersAPI} from "../api/api";
 
 
 export type PostsType = {
@@ -86,13 +85,9 @@ export const addPostAC = () => ({type: ADD_POST}) as const
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 
-export const userProfile = (id: number) => {
+export const getUserProfile = (userId: number) => {
     return (dispatch: Dispatch) => {
-        let userId = +id
-        if (!userId) {
-            userId = 2
-        }
-        profileAPI.profileUser(userId).then(response => {
+        usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
     }
