@@ -18,15 +18,16 @@ export type MessagesType = {
     message: string
 }
 
-export type DialogsPageType = {
+// export type DialogsPageType = {
+//     dialogs: DialogsType[]
+//     messages: MessagesType[]
+//     newMessageBody: string
+// }
+export  type DialogsInitialStateType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageBody: string
-}
-type InitialStateType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    newMessageBody: string
+
 }
 
 let initialState = {
@@ -49,7 +50,7 @@ let initialState = {
     newMessageBody: ''
 }
 
-export  const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+export  const dialogsReducer = (state: DialogsInitialStateType = initialState, action: ActionsTypes): DialogsInitialStateType => {
 
     if (action.type === UPDATE_NEW_MESSAGE_BODY) {
         let stateCopy = {...state,}

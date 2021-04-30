@@ -9,6 +9,7 @@ import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 import UsersContainer from './componets/Users/UsersContainer';
 import ProfileContainer from "./componets/ProFile/ProfileContainer";
 import HeaderContainer from './componets/Header/HeaderContainer';
+import {Login} from "./componets/login/login";
 
 
 export const App: React.FC<any> = () => {
@@ -24,7 +25,7 @@ export const App: React.FC<any> = () => {
                     }/>
                     <Route path={'/profile/:userId?'} render={() =>
                         <ProfileContainer/>}/>
-                    <Route path={'/UsersFuntionComponent'} render={() =>
+                    <Route path={'/users'} render={() =>
                         <UsersContainer/>}/>
                     <Route path={'/news'} render={() =>
                         <News/>}/>
@@ -32,6 +33,8 @@ export const App: React.FC<any> = () => {
                         <Music/>}/>
                     <Route path={'/settings'} render={() =>
                         <Settings/>}/>
+                    <Route path={'/login'} render={() =>
+                        <Login/>}/>
                 </div>
             </div>
         </BrowserRouter>)

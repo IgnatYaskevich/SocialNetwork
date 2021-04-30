@@ -5,21 +5,21 @@ import {authAPI} from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-type InitialStatePropsType = {
+export type AuthInitialStatePropsType = {
     id: string
     email: string
     login: string
     isAuth: boolean
 }
 
-export let initialState: InitialStatePropsType = {
+export let initialState: AuthInitialStatePropsType = {
     id: '',
     email: '',
     login: '',
     isAuth: false
 }
 
-export const authReducer = (state: InitialStatePropsType = initialState, action: ActionsTypes): InitialStatePropsType => {
+export const authReducer = (state: AuthInitialStatePropsType = initialState, action: ActionsTypes): AuthInitialStatePropsType => {
     switch (action.type) {
         case SET_USER_DATA : {
             return {
