@@ -53,6 +53,4 @@ let mapStateToProps = (state: AppStateType) => ({
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile}),
-    withRouter
-    , withAuthRedirect)(ProfileContainer)
+    connect(mapStateToProps, {getUserProfile}), withRouter, withAuthRedirect)(ProfileContainer)
