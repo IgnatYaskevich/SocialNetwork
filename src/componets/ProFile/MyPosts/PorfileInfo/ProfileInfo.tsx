@@ -17,9 +17,8 @@ const ProfileInfo = (props: PropsType) => {
             {/*    <img src={'http://www.meissl.com/media/images/8f24db1f/schweiz.jpg'} alt={'s'}/>*/}
             {/*</div>*/}
             <div className={s.descriptionBlock}>
-                <img
-                    src={props.profile.photos.large != null ? props.profile.photos.small : userPhoto}
-                    className={styles.photo} alt={'Avatar'}/>
+                <img src={props.profile.photos.large != null ? props.profile.photos.small : userPhoto}
+                     className={styles.photo} alt={'Avatar'}/>
                 <ProfileStatusFunction status={'Hello my friends'}/>
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.lookingForAJobDescription ? '' : '-No description-'}</div>
