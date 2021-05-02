@@ -1,10 +1,11 @@
 import {connect} from "react-redux";
 import {follow, getUsers, toggleFollowingProgress, unFollow, UsersPropsType} from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Users} from "./UsersPresentation/Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStateToPropsType = {
@@ -61,8 +62,7 @@ export class UsersContainer extends React.Component<PropsType, {}> {
     }
 }
 
-let
-    mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         return {
             users: state.usersPage.users,
             pageSize: state.usersPage.pageSize,
@@ -73,30 +73,9 @@ let
         }
     }
 
-let withRedirect = withAuthRedirect(UsersContainer)
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+// ф-ия compose --- позволяет все обёртки делать последовательными.
+export default compose<ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
     follow, unFollow, toggleFollowingProgress, getUsers
-})(withRedirect)
+}), withAuthRedirect)(UsersContainer)
 
-// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//         return {
-//             follow: (userId: string) => {
-//                 dispatch(followAC(userId))
-//             },
-//             unFollow: (userId: string) => {
-//                 dispatch(unFollowAC(userId))
-//             },
-//             setUsers: (users: Array<UsersPropsType>) => {
-//                 dispatch(setUsersAC(users))
-//             },
-//             setCurrentPage: (pageNumber: number) => {
-//                 dispatch(setCurrentPageAC(pageNumber))
-//             },
-//             setTotalUsersCount: (totalCount: number) => {
-//                 dispatch(setTotalUserCountAC(totalCount))
-//             },
-//             toggleIsFetching: (isFetching: boolean) => {
-//                 dispatch(toggleIsFetchingAC(isFetching))
-//             }
-//         }
-//     }

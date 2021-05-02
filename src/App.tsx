@@ -5,11 +5,11 @@ import {BrowserRouter, Route} from "react-router-dom"
 import News from "./componets/News/News";
 import Music from "./componets/Music/Music";
 import Settings from "./componets/Settings/Settings";
-import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
 import UsersContainer from './componets/Users/UsersContainer';
 import ProfileContainer from "./componets/ProFile/ProfileContainer";
 import HeaderContainer from './componets/Header/HeaderContainer';
 import {Login} from "./componets/login/login";
+import DialogsContainer from './componets/Dialogs/DialogsContainer';
 
 
 export const App: React.FC<any> = () => {

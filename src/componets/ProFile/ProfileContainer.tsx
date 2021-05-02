@@ -6,6 +6,7 @@ import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStatePropsType = {
@@ -45,14 +46,13 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     }
 }
 
-let AuthRedirectComponent = (props: any) => {
-    return <ProfileContainer {...props}/>
-}
+
 let mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
-
 })
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-export default withAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent))
+// ф-ия compose --- позволяет все обёртки делать последовательными.
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter
+    , withAuthRedirect)(ProfileContainer)
