@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 type ProfileStatusPropsType = {
     status: string
@@ -7,17 +7,22 @@ type ProfileStatusPropsType = {
 // const [editMode, setEdiMode] = useState(false)
 
 export const ProfileStatusFunction = (props: ProfileStatusPropsType) => {
-    let state = {
-        editMode: false
+    const [editMode, setEditMode] = useState(false)
+    let activateEditMode = () => {
+        setEditMode(true)
     }
+    let deactivateEditMode = () => {
+        setEditMode(false)
+    }
+
     return (
         <div>
-            {state
+            {!editMode
                 ? <div>
-                    <span>{props.status}</span>
+                    <span onDoubleClick={activateEditMode}>{props.status}</span>
                 </div>
                 : <div>
-                    <input value={props.status}/>
+                    <input value={props.status} onBlur={deactivateEditMode} autoFocus={true}/>
                 </div>
             }
         </div>)

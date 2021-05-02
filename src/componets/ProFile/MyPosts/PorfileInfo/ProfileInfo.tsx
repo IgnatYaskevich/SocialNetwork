@@ -3,7 +3,7 @@ import s from './ProfileIndo.module.css'
 import {ProfileType} from "../../../../redux/profile-reducer";
 import userPhoto from "../../../../images/images.png";
 import styles from "../../../Users/users.module.css";
-import {ProfileStatusClass} from "./ProfileStatusClass";
+import {ProfileStatusFunction} from "./ProfileStatusFunction";
 
 type PropsType = {
     profile: ProfileType
@@ -20,7 +20,7 @@ const ProfileInfo = (props: PropsType) => {
                 <img
                     src={props.profile.photos.large != null ? props.profile.photos.small : userPhoto}
                     className={styles.photo} alt={'Avatar'}/>
-                <ProfileStatusClass status={'Hello my friends'}/>
+                <ProfileStatusFunction status={'Hello my friends'}/>
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.lookingForAJobDescription ? '' : '-No description-'}</div>
 
