@@ -28,12 +28,6 @@ export const usersAPI = {
                 return response.data
             })
     },
-    getProfile(id: number) {
-        return instance.get(`profile/` + id)
-            .then(response => {
-                return response
-            })
-    }
 }
 export const authAPI = {
     me() {
@@ -41,5 +35,19 @@ export const authAPI = {
             .then(response => {
                 return response.data
             })
+    }
+}
+export const profileAPI = {
+    getProfile(userId: number) {
+        return instance.get(`profile/` + userId)
+            .then(response => {
+                return response
+            })
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/` + userId)
+    },
+    upDateStatus(status: string) {
+        return instance.put(`profile/status/`, {status: status})
     }
 }

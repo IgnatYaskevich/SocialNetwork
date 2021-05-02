@@ -3,10 +3,13 @@ import s from './ProfileIndo.module.css'
 import {ProfileType} from "../../../../redux/profile-reducer";
 import userPhoto from "../../../../images/images.png";
 import styles from "../../../Users/users.module.css";
-import {ProfileStatusFunction} from "./ProfileStatusFunction";
+import {ProfileStatusClass} from "./ProfileStatusClass";
 
 type PropsType = {
     profile: ProfileType
+    status: string
+    updateUserStatus: string
+
 }
 
 const ProfileInfo = (props: PropsType) => {
@@ -19,10 +22,13 @@ const ProfileInfo = (props: PropsType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large != null ? props.profile.photos.small : userPhoto}
                      className={styles.photo} alt={'Avatar'}/>
-                <ProfileStatusFunction status={'Hello my friends'}/>
-                <div>{props.profile.fullName}</div>
-                <div>{props.profile.lookingForAJobDescription ? '' : '-No description-'}</div>
-
+                <div>
+                    {props.profile.fullName}
+                </div>
+                <ProfileStatusClass status={props.status ? props.status : 'No status'}/>
+                <div>
+                    {props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : '-No description-'}
+                </div>
             </div>
         </div>
     )

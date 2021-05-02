@@ -1,22 +1,26 @@
 import React from "react"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {getUserProfile, getUserStatus, ProfileType, updateUserStatus} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {profileAPI} from "../../api/api";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null
     // setUserProfile: (profile: ProfileType) => void
     getUserProfile: (userId: number) => void
-
+    getUserStatus: (userId: number) => void
+    status: string
+    updateUserStatus: string
 }
 type PathParamsType = {
     userId: string
+
 
 }
 type OwnPropsType = MapStatePropsType    //
@@ -34,13 +38,16 @@ class ProfileContainer extends React.Component<PropsType, {}> {
         //     this.props.setUserProfile(response.data)
         // })   
         this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
     }
 
     render() {
         if (!this.props.profile) return <Preloader/>
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile}
+                         status={this.props.status}
+                         updateUserStatus={this.props.updateUserStatus}/>
             </div>
         )
     }
@@ -49,8 +56,13 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 
 let mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile}), withRouter, withAuthRedirect)(ProfileContainer)
+    connect(mapStateToProps, {
+        getUserProfile,
+        getUserStatus,
+        updateUserStatus
+    }), withRouter, withAuthRedirect)(ProfileContainer)
