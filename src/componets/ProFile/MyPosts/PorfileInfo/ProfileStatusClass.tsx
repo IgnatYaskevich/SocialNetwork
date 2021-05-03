@@ -16,7 +16,7 @@ export class ProfileStatusClass extends React.Component<ProfileStatusPropsType, 
         debugger
         this.setState({
             editMode: true,
-            status: this.props.status
+            // status: this.props.status
         })
     };
 
@@ -33,8 +33,19 @@ export class ProfileStatusClass extends React.Component<ProfileStatusPropsType, 
         })
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        debugger
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+        console.log('update')
+    }
+
 
     render() {
+        console.log('render')
         debugger
         return (
             <div>
