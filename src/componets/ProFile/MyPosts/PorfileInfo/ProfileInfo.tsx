@@ -1,6 +1,6 @@
 import React from "react";
 import s from './ProfileIndo.module.css'
-import {ProfileType} from "../../../../redux/profile-reducer";
+import {ProfileType, updateUserStatus} from "../../../../redux/profile-reducer";
 import userPhoto from "../../../../images/images.png";
 import styles from "../../../Users/users.module.css";
 import {ProfileStatusClass} from "./ProfileStatusClass";
@@ -8,7 +8,7 @@ import {ProfileStatusClass} from "./ProfileStatusClass";
 type PropsType = {
     profile: ProfileType
     status: string
-    updateUserStatus: string
+    updateUserStatus: (status: string) => void
 
 }
 
@@ -25,7 +25,8 @@ const ProfileInfo = (props: PropsType) => {
                 <div>
                     {props.profile.fullName}
                 </div>
-                <ProfileStatusClass status={props.status ? props.status : 'No status'}/>
+                <ProfileStatusClass updateUserStatus={updateUserStatus}
+                                    status={props.status}/>
                 <div>
                     {props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : '-No description-'}
                 </div>

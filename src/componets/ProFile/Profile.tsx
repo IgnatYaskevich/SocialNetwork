@@ -12,7 +12,7 @@ import {ProfileType} from "../../redux/profile-reducer";
 type PropsType = {
     profile: ProfileType
     status: string
-    updateUserStatus: string
+    updateUserStatus: (status: string) => void
 }
 
 

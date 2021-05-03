@@ -27,12 +27,12 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType
 export class UsersContainer extends React.Component<PropsType, {}> {
 
     componentDidMount() {
-        debugger
+
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        debugger
+
         this.props.getUsers(pageNumber, this.props.pageSize)
 
         // this.props.setCurrentPage(pageNumber)

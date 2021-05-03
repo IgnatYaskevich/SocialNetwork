@@ -7,16 +7,14 @@ import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {profileAPI} from "../../api/api";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null
-    // setUserProfile: (profile: ProfileType) => void
     getUserProfile: (userId: number) => void
     getUserStatus: (userId: number) => void
+    updateUserStatus: (status: string) => void
     status: string
-    updateUserStatus: string
 }
 type PathParamsType = {
     userId: string
