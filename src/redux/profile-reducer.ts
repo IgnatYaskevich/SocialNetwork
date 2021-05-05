@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
 import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 
 export type PostsType = {
