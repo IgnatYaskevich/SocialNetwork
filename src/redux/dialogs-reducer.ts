@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_MESSAGE = '__SEND_MESSAGE';
 
 export type DialogsType = {
     id: string
@@ -50,21 +50,35 @@ let initialState = {
     newMessageBody: ''
 }
 
-export  const dialogsReducer = (state: DialogsInitialStateType = initialState, action: ActionsTypes): DialogsInitialStateType => {
-
-    if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        let stateCopy = {...state,}
-        stateCopy.newMessageBody = action.newBody
-        return stateCopy
-    } else if (action.type === SEND_MESSAGE) {
-        let body = state.newMessageBody
-        let stateCopy = {...state, messages: [...state.messages]}
-        stateCopy.newMessageBody = ''
-        stateCopy.messages.push({id: v1(), message: body})
-        return stateCopy
+export const dialogsReducer = (state: DialogsInitialStateType = initialState, action: ActionsTypes): DialogsInitialStateType => {
+    switch (action.type) {
+        // case UPDATE_NEW_MESSAGE_BODY : {
+        //     return {...state, newMessageBody: action.newBody}
+        // }
+        case SEND_MESSAGE: {
+            const newMessage = {id: v1(), message: action.newMessageBody}
+            const asd = [...state.messages, newMessage]
+            return {
+                ...state,
+                messages: asd
+            }
+        }
+        default:
+            return state
     }
-
-    return state
+    // if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+    //     let stateCopy = {...state,}
+    //     stateCopy.newMessageBody = action.newBody
+    //     return stateCopy
+    // } else if (action.type === SEND_MESSAGE) {
+    //     let body = state.newMessageBody
+    //     let stateCopy = {...state, messages: [...state.messages]}
+    //     stateCopy.newMessageBody = ''
+    //     stateCopy.messages.push({id: v1(), message: body})
+    //     return stateCopy
+    // }
+    //
+    // return state
 }
 
 export const sendMessageCreatorAC = (newMessageBody: string) => {
@@ -75,12 +89,12 @@ export const sendMessageCreatorAC = (newMessageBody: string) => {
         } as const
     )
 }
-export const updateNewMessageBodyCreatorAC = (body: string) => {
-    return (
-        {
-            type: UPDATE_NEW_MESSAGE_BODY,
-            newBody: body
-        } as const
-    )
-}
+// export const updateNewMessageBodyCreatorAC = (newBody: string) => {
+//     return (
+//         {
+//             type: UPDATE_NEW_MESSAGE_BODY,
+//             newBody
+//         } as const
+//     )
+// }
 
