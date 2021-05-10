@@ -20,7 +20,7 @@ export const Profile = (props: PropsType) => {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
-            <MyPostContainer />
+            <MyPostContainer/>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {Login} from "../componets/login/login";
 
 
 export type PostsType = {
@@ -66,17 +67,17 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case ADD_POST: {
             let newPost = {
                 id: v1(),
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
             let stateCopy = {...state, posts: [...state.posts]}
             stateCopy.posts.push(newPost)
-            stateCopy.newPostText = ''
+            console.log(stateCopy)
             return stateCopy
         }
-        case UPDATE_NEW_POST_TEXT : {
-            return {...state, newPostText: action.newText}
-        }
+        // case UPDATE_NEW_POST_TEXT : {
+        //     return {...state, newPostText: action.newText}
+        // }
         case SET_USER_PROFILE : {
             return {...state, profile: action.profile}
         }
@@ -88,7 +89,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-export const addPostAC = () => ({type: ADD_POST}) as const
+export const addPostAC = (newPostText:string) => ({type: ADD_POST, newPostText}) as const
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
