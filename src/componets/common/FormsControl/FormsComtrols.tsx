@@ -2,17 +2,17 @@ import React from "react";
 import style from './FormsComtrols.module.css'
 
 
-const FormControl = ({input, meta, child, ...props}: any) => {
-    const hasError = meta.touched && meta.error
-    return (
-        <div className={style.formControl + ' ' + (hasError ? style.error : "")}>
-            <div>
-                {props.child}
-            </div>
-            {hasError && <span>{meta.error}</span>}
-        </div>
-    )
-}
+// const FormControl = ({input, meta, child, ...props}: any) => {
+//     const hasError = meta.touched && meta.error
+//     return (
+//         <div className={style.formControl + ' ' + (hasError ? style.error : "")}>
+//             <div>
+//                 {props.child}
+//             </div>
+//             {hasError && <span>{meta.error}</span>}
+//         </div>
+//     )
+// }
 export const Textarea = ({input, meta, ...props}: any) => {
     const hasError = meta.touched && meta.error
     return (
