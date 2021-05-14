@@ -8,8 +8,8 @@ import Settings from "./componets/Settings/Settings";
 import UsersContainer from './componets/Users/UsersContainer';
 import ProfileContainer from "./componets/ProFile/ProfileContainer";
 import HeaderContainer from './componets/Header/HeaderContainer';
-import {Login} from "./componets/login/login";
 import DialogsContainer from './componets/Dialogs/DialogsContainer';
+import Login from "./componets/login/login";
 
 
 export const App: React.FC<any> = () => {
@@ -34,7 +34,7 @@ export const App: React.FC<any> = () => {
                     <Route path={'/settings'} render={() =>
                         <Settings/>}/>
                     <Route path={'/login'} render={() =>
-                        <Login/>}/>
+                        <Login />}/>
                 </div>
             </div>
         </BrowserRouter>)
