@@ -29,6 +29,16 @@ export const usersAPI = {
             })
     },
 }
+type AuthResponseType = {
+    data: {
+        id: number
+        login: string
+        email: string
+    }
+    'messages': string[]
+    'fieldsErrors': [],
+    'resultCode': number
+}
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
@@ -37,7 +47,7 @@ export const authAPI = {
             })
     },
     login(email: string, password: string, rememberMe: boolean,) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post<AuthResponseType>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
         return instance.delete(`auth/login`)
