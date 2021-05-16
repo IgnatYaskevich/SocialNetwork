@@ -15,6 +15,7 @@ type MapStatePropsType = {
     getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
     status: string
+    authorizedUserId: number
 }
 type PathParamsType = {
     userId: string
@@ -29,12 +30,12 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     componentDidMount() {
         let userId = +this.props.match.params.userId
         if (!userId) {
-            userId = 13845
+            userId = this.props.authorizedUserId
         }
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
         // usersAPI.getProfile(userId).then(response => {
         //     this.props.setUserProfile(response.data)
-        // })   
+        // })
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
     }
@@ -54,7 +55,9 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 
 let mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.

@@ -1,11 +1,19 @@
 import {connect} from "react-redux";
-import {follow, getUsers, toggleFollowingProgress, unFollow, UsersPropsType} from "../../redux/users-reducer";
+import {follow, requestUsers, toggleFollowingProgress, unFollow, UsersPropsType} from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./UsersPresentation/Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getUsers,
+    getCurrentPage,
+    getFollowingImProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUserCount
+} from "../../redux/usersSelectors";
 
 
 type MapStateToPropsType = {
@@ -62,20 +70,31 @@ export class UsersContainer extends React.Component<PropsType, {}> {
     }
 }
 
+// let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+//         return {
+//             users: state.usersPage.users,
+//             pageSize: state.usersPage.pageSize,
+//             totalUserCount: state.usersPage.totalUsersCount,
+//             currentPage: state.usersPage.currentPage,
+//             isFetching: state.usersPage.isFetching,
+//             followingImProgress: state.usersPage.followingImProgress
+//         }
+//     }
+
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-        return {
-            users: state.usersPage.users,
-            pageSize: state.usersPage.pageSize,
-            totalUserCount: state.usersPage.totalUsersCount,
-            currentPage: state.usersPage.currentPage,
-            isFetching: state.usersPage.isFetching,
-            followingImProgress: state.usersPage.followingImProgress
-        }
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUserCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingImProgress: getFollowingImProgress(state)
     }
+}
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
-    follow, unFollow, toggleFollowingProgress, getUsers
-}), withAuthRedirect)(UsersContainer)
+        follow, unFollow, toggleFollowingProgress, getUsers: requestUsers
+    }), withAuthRedirect)(UsersContainer)
 
