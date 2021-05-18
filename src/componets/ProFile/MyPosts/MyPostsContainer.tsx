@@ -17,7 +17,7 @@ export type PropsType = MapDispatchType & MapStateType & {}
 
 let mapStateToProps = (state: AppStateType): MapStateType => {
     return {
-         newPostText: state.profilePage.newPostText,
+        newPostText: state.profilePage.newPostText,
         posts: state.profilePage.posts
     }
 }
@@ -27,9 +27,9 @@ let MapDispatchToPropsParam = (dispatch: Dispatch): MapDispatchType => {
         addPost: (newPostText: string) => {
             dispatch(addPostAC(newPostText))
         },
-            onPostChange: (text: string) => {
-                dispatch(updateNewPostTextAC(text))
-            }
+        onPostChange: (text: string) => {
+            dispatch(updateNewPostTextAC(text))
+        }
     }
 }
 export const MyPostContainer = connect<MapStateType, MapDispatchType, {}, AppStateType>(mapStateToProps, MapDispatchToPropsParam)(MyPosts);

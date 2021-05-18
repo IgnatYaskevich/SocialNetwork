@@ -13,7 +13,6 @@ export class ProfileStatusClass extends React.Component<ProfileStatusPropsType, 
     };
 
     activateEditMode = () => {
-        debugger
         this.setState({
             editMode: true,
             // status: this.props.status

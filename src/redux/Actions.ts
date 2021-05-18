@@ -1,6 +1,7 @@
 import {addPostAC, setStatus, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {sendMessageCreatorAC} from "./dialogs-reducer";
 import {setAuthUserData} from "./auth-reducer";
+import {initializedSuccess} from "./AppReducer";
 
 
 export type ActionsTypes =
@@ -11,4 +12,6 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof initializedSuccess>
+
 

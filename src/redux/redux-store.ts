@@ -7,6 +7,7 @@ import {authReducer} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form";
 import {ActionsTypes} from "./Actions";
+import { appReducer } from "./AppReducer";
 
 
 export type AppStateType = ReturnType<typeof reducers>
@@ -17,10 +18,11 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 
-// общая типизация диспатч
+// общая типизация Thunks
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 
 // applyMiddleware() - store  прими промежуточные слои (для запуска thunk)

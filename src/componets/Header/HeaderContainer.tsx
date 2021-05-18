@@ -14,9 +14,7 @@ import {AppStateType} from "../../redux/redux-store";
 //     getAuthUserData : ()=>void
 // }
 class HeaderContainer extends React.Component<HeaderPropsType> {
-    componentDidMount() {
-        this.props.getAuthUserData()
-    }
+
 
     render() {
         return (
@@ -30,6 +28,6 @@ const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 })
-const connector = connect(mapStateToProps, {getAuthUserData: getAuthUserDataTC, logoutTC})
+const connector = connect(mapStateToProps, {logoutTC})
 export default connector(HeaderContainer)
 export type HeaderPropsType = ConnectedProps<typeof connector>

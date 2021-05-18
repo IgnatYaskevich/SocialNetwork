@@ -26,7 +26,6 @@ export const authReducer = (state: AuthInitialStatePropsType = initialState, act
             return {
                 ...state,
                 ...action.payload,
-
             }
         }
         default:
@@ -34,14 +33,14 @@ export const authReducer = (state: AuthInitialStatePropsType = initialState, act
     }
 }
 
-export const setAuthUserData = (id: null | string, login: null | string, email: null | string, isAuth: boolean) =>
-    ({type: SET_USER_DATA, payload: {id, login, email, isAuth}} as const)
+export const setAuthUserData = (userId: null | string, login: null | string, email: null | string, isAuth: boolean) =>
+    ({type: SET_USER_DATA, payload: {userId, login, email, isAuth}} as const)
 
 
 //Thunk
 // async - асинхронная.
 export const getAuthUserDataTC = () : AppThunkType=>(dispatch) => {
-        authAPI.me()
+       return  authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data

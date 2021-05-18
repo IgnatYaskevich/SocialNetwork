@@ -19,9 +19,8 @@ type MapStatePropsType = {
 }
 type PathParamsType = {
     userId: string
-
-
 }
+
 type OwnPropsType = MapStatePropsType    //
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
@@ -31,6 +30,9 @@ class ProfileContainer extends React.Component<PropsType, {}> {
         let userId = +this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
+            if(!userId){
+                this.props.history.push('/login')
+            }
         }
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
         // usersAPI.getProfile(userId).then(response => {
@@ -41,10 +43,13 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     }
 
     render() {
-        if (!this.props.profile) return <Preloader/>
+        if (!this.props.profile) {
+            return <Preloader/>
+        }
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}
+                <Profile {...this.props}
+                         profile={this.props.profile}
                          status={this.props.status}
                          updateUserStatus={this.props.updateUserStatus}/>
             </div>
@@ -53,12 +58,13 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 }
 
 
-let mapStateToProps = (state: AppStateType) => ({
+let mapStateToProps = (state: AppStateType) => {
+    return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
-})
+}}
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<React.ComponentType>(
