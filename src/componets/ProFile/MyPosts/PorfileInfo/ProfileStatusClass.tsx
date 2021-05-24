@@ -6,7 +6,6 @@ type ProfileStatusPropsType = {
 }
 
 export class ProfileStatusClass extends React.Component<ProfileStatusPropsType, {}> {
-
     state = {
         editMode: false,
         status: this.props.status
@@ -20,7 +19,6 @@ export class ProfileStatusClass extends React.Component<ProfileStatusPropsType, 
     };
 
     deactivateEditMode = () => {
-        debugger
         this.setState({
             editMode: false
         })

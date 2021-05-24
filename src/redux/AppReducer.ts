@@ -1,4 +1,4 @@
-import {AuthInitialStatePropsType, getAuthUserDataTC} from "./auth-reducer";
+import {getAuthUserDataTC} from "./auth-reducer";
 import {AppThunkType} from "./redux-store";
 import {ActionsTypes} from "./Actions";
 

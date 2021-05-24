@@ -4,15 +4,14 @@ import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./UsersPresentation/Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
-    getUsers,
     getCurrentPage,
     getFollowingImProgress,
     getIsFetching,
     getPageSize,
-    getTotalUserCount
+    getTotalUserCount,
+    getUsers
 } from "../../redux/usersSelectors";
 
 
