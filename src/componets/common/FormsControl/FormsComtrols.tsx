@@ -13,7 +13,7 @@ import style from './FormsComtrols.module.css'
 //         </div>
 //     )
 // }
-export const Textarea = ({input, meta, ...props}: any) => {
+export const Textarea = React.memo(({input, meta, ...props}: any) => {
     const hasError = meta.touched && meta.error
     return (
         <div className={style.formControl + ' ' + (hasError ? style.error : "")}>
@@ -23,9 +23,9 @@ export const Textarea = ({input, meta, ...props}: any) => {
             {hasError && <span>{meta.error}</span>}
         </div>
     )
-}
+})
 
-export const Input = ({input, meta, ...props}: any) => {
+export const Input = React.memo(({input, meta, ...props}: any) => {
     const hasError = meta.touched && meta.error
     return (
         <div className={style.formControl + ' ' + (hasError ? style.error : "")}>
@@ -35,4 +35,4 @@ export const Input = ({input, meta, ...props}: any) => {
             {hasError && <span>{meta.error}</span>}
         </div>
     )
-}
+})

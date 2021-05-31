@@ -16,11 +16,11 @@ type PropsType = {
 }
 
 
-export const Profile = (props: PropsType) => {
+export const Profile = React.memo((props: PropsType) => {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
             <MyPostContainer/>
         </div>
     )
-}
+})

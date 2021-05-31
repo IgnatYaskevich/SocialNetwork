@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react"
+import React from "react"
 import s from './MyPosts.module.css'
 
 import Post from "./Post/Post";
@@ -14,10 +14,10 @@ type MyPostsPropsType = {
 }
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
     let postsElement =
         props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likesCount}
-    />)
+        />)
     // let newPostElement = React.createRef<HTMLTextAreaElement>()
     // // const addPost = () => {
     // //     props.addPost()
@@ -50,4 +50,4 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-}
+})
