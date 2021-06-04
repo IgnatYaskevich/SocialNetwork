@@ -21,13 +21,11 @@ let reducers = combineReducers({
     form: formReducer,
     app: appReducer
 })
-
 // общая типизация Thunks
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 
 // applyMiddleware() - store  прими промежуточные слои (для запуска thunk)
 export const store = createStore(reducers, applyMiddleware(thunk))
-
 
 // @ts-ignore
 window.store = store

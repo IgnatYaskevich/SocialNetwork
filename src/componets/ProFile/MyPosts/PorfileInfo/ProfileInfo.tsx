@@ -1,6 +1,6 @@
 import React from "react";
 import s from './ProfileIndo.module.css'
-import {ProfileType, updateUserStatus} from "../../../../redux/profile-reducer";
+import {ProfileType, updateUserStatusTC} from "../../../../redux/profile-reducer";
 import userPhoto from "../../../../images/images.png";
 import styles from "../../../Users/users.module.css";
 import {ProfileStatusClass} from "./ProfileStatusClass";
@@ -26,7 +26,7 @@ const ProfileInfo = (props: PropsType) => {
                 <div>
                     {props.profile.fullName}
                 </div>
-                <ProfileStatusWithHooks updateUserStatus={updateUserStatus}
+                <ProfileStatusWithHooks updateUserStatus={updateUserStatusTC}
                                     status={props.status}/>
                 <div>
                     {props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : '-No description-'}

@@ -1,7 +1,7 @@
 import React from "react"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, getUserStatus, ProfileType, updateUserStatus} from "../../redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
@@ -69,7 +69,7 @@ let mapStateToProps = (state: AppStateType) => {
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        getUserProfile,
-        getUserStatus,
-        updateUserStatus
+        getUserProfile: getUserProfileTC,
+        getUserStatus: getUserStatusTC,
+        updateUserStatus: updateUserStatusTC
     }), withRouter, withAuthRedirect)(ProfileContainer)

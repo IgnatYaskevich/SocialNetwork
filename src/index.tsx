@@ -5,17 +5,20 @@ import ReactDOM from "react-dom";
 import {store} from "./redux/redux-store";
 import {Provider} from "react-redux";
 import App from './App';
+import {BrowserRouter} from "react-router-dom";
 
 
 // export let rerenderEntireTree = () => {
-    ReactDOM.render(
-        <React.StrictMode>
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
             <Provider store={store}>
                 <App/>
             </Provider>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 // }
 
 // store.subscribe(rerenderEntireTree)

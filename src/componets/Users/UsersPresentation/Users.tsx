@@ -4,6 +4,7 @@ import {v1} from "uuid";
 import userPhoto from "../../../images/images.png";
 import {UsersPropsType} from "../../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 type PropsType = {
     follow: (userId: string) => void
@@ -26,17 +27,8 @@ export const Users = (props: PropsType) => {
     }
     return (
         <div>
-            <div>
-                {pages.map(p => {
-                    return (
-                        <span className={props.currentPage === p ? styles.selectedPage : ''}
-                              key={v1()}
-                              onClick={(e) => {
-                                  props.onPageChanged(p)
-                              }}>{p + ","}</span>
-                    )
-                })}
-            </div>
+                <Paginator pageSize={props.pageSize} totalUSerCount={props.totalUSerCount}
+                           currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
             {
                 props.users.map(userId => <div key={v1()}>
                     <span>

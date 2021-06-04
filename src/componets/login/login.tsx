@@ -12,8 +12,8 @@ const Login: React.FC<Props> = props => {
         props.loginTC(formData.email, formData.password, formData.rememberMe)
     }
 
-    if(props.isAuth){
-        return  <Redirect to={'/profile'}/>
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
     }
     return (
         <div>
@@ -23,12 +23,10 @@ const Login: React.FC<Props> = props => {
     )
 }
 
-
 const MapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth
 })
 
-
 const connector = connect(MapStateToProps, {loginTC})
 export default connector(Login)
-type Props= ConnectedProps<typeof connector>
+type Props = ConnectedProps<typeof connector>

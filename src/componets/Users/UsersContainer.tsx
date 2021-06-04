@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {follow, requestUsers, toggleFollowingProgress, unFollow, UsersPropsType} from "../../redux/users-reducer";
+import {followTC, requestUsersTC, toggleFollowingProgress, unFollowTC, UsersPropsType} from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./UsersPresentation/Users";
@@ -94,6 +94,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
-        follow, unFollow, toggleFollowingProgress, getUsers: requestUsers
+        follow: followTC, unFollow: unFollowTC, toggleFollowingProgress, getUsers: requestUsersTC
     }))(UsersContainer)
 

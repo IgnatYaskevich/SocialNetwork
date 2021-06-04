@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./componets/Navbar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom"
+import {Route} from "react-router-dom"
 import News from "./componets/News/News";
 import Music from "./componets/Music/Music";
 import Settings from "./componets/Settings/Settings";
@@ -19,7 +19,6 @@ import {Preloader} from "./componets/common/Preloader/Preloader";
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeAppTC()
-        // this.props.getAuthUserDataTC()
     }
 
     render() {
@@ -27,21 +26,20 @@ class App extends React.Component<AppPropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
-                <div className='app-wrapper'>
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className='app-wrapper-content '>
-                        <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                        <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                        <Route path={'/users'} render={() => <UsersContainer/>}/>
-                        <Route path={'/news'} render={() => <News/>}/>
-                        <Route path={'/music'} render={() => <Music/>}/>
-                        <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/login'} render={() => <Login/>}/>
-                    </div>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className='app-wrapper-content '>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                 </div>
-            </BrowserRouter>)
+            </div>
+        )
     }
 }
 
