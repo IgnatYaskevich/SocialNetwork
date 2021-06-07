@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
-import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {LinearProgress} from "@material-ui/core";
 
 
 type MapStatePropsType = {
@@ -44,7 +44,7 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 
     render() {
         if (!this.props.profile) {
-            return <Preloader/>
+            return <LinearProgress/>
         }
         return (
             <div>

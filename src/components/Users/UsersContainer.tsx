@@ -3,7 +3,6 @@ import {followTC, requestUsersTC, toggleFollowingProgress, unFollowTC, UsersProp
 import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./UsersPresentation/Users";
-import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -13,6 +12,7 @@ import {
     getTotalUserCount,
     getUsers
 } from "../../redux/usersSelectors";
+import {LinearProgress} from "@material-ui/core";
 
 
 type MapStateToPropsType = {
@@ -54,7 +54,7 @@ export class UsersContainer extends React.Component<PropsType, {}> {
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader/> : null}
+                {this.props.isFetching ? <LinearProgress/> : null}
                 <Users totalUSerCount={this.props.totalUserCount}
                        pageSize={this.props.pageSize}
                        currentPage={this.props.currentPage}
