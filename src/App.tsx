@@ -1,20 +1,21 @@
 import React from 'react';
 import './App.css';
-import Navbar from "./componets/Navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom"
-import News from "./componets/News/News";
-import Music from "./componets/Music/Music";
-import Settings from "./componets/Settings/Settings";
-import UsersContainer from './componets/Users/UsersContainer';
-import ProfileContainer from "./componets/ProFile/ProfileContainer";
-import HeaderContainer from './componets/Header/HeaderContainer';
-import DialogsContainer from './componets/Dialogs/DialogsContainer';
-import Login from "./componets/login/login";
+import HeaderContainer from './components/Header/HeaderContainer';
+import Login from "./components/login/login";
 import {connect, ConnectedProps} from "react-redux";
 import {initializeAppTC} from "./redux/AppReducer";
 import {AppStateType} from "./redux/redux-store";
-import {Preloader} from "./componets/common/Preloader/Preloader";
+import {withSuspense} from "./hoc/withSuspense";
+import {LinearProgress} from "@material-ui/core";
 
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/ProFile/ProfileContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
+const Music = React.lazy(() => import('./components/Music/Music'));
+const News = React.lazy(() => import('./components/News/News'));
 
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
@@ -23,19 +24,19 @@ class App extends React.Component<AppPropsType> {
 
     render() {
         if (!this.props.initialized) {
-            return <Preloader/>
+            return <LinearProgress/>
         }
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content '>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
-                    <Route path={'/news'} render={() => <News/>}/>
-                    <Route path={'/music'} render={() => <Music/>}/>
-                    <Route path={'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
+                    <Route path={'/profile/:userId?'} render={withSuspense(ProfileContainer)}/>
+                    <Route path={'/users'} render={withSuspense(UsersContainer)}/>
+                    <Route path={'/news'} render={withSuspense(News)}/>
+                    <Route path={'/music'} render={withSuspense(Music)}/>
+                    <Route path={'/settings'} render={withSuspense(Settings)}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                 </div>
             </div>
