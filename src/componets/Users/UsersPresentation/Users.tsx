@@ -18,17 +18,16 @@ type PropsType = {
 }
 
 export const Users = (props: PropsType) => {
-    let pagesCount = Math.ceil(props.totalUSerCount / props.pageSize)
-    let pages = [];
-
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    // let pagesCount = Math.ceil(props.totalUSerCount / props.pageSize)
+    // let pages = [];
+    //
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
     return (
         <div>
-                <Paginator pageSize={props.pageSize} totalUSerCount={props.totalUSerCount}
-                           currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
+            <Paginator pageSize={props.pageSize} totalItemsCount={props.totalUSerCount}
+                       currentPage={props.currentPage} onPageChanged={props.onPageChanged} portionSize={10}/>
             {
                 props.users.map(userId => <div key={v1()}>
                     <span>

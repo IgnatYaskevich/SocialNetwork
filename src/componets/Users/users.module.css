@@ -1,9 +1,19 @@
+.paginateContainer {
+    display: flex;
+}
+
 .photo {
     width: 80px;
     height: 80px;
     border-radius: 50%;
 }
 
-.selectedPage{
-    font-weight: bold ;
+.selectedPage {
+    font-weight: bold;
+
+}
+
+.portionSize {
+    border: 1px solid;
+    margin: 1px;
 }
