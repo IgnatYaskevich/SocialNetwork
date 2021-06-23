@@ -1,6 +1,10 @@
 .descriptionBlock {
-    align-items: center;
-    padding: 10px;
-    background-image: url('https://images.wallpaperscraft.ru/image/steklo_dozhd_kapli_205222_3840x2160.jpg');
+    padding: 20px;
+    height: 350px;
+    background-image: url(https://images.wallpaperscraft.ru/image/steklo_dozhd_kapli_205222_3840x2160.jpg);
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
 }

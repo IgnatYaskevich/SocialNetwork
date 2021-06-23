@@ -1,7 +1,13 @@
 import React from "react"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from "../../redux/profile-reducer";
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    ProfileType,
+    savePhoto,
+    updateUserStatusTC
+} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -16,6 +22,7 @@ type MapStatePropsType = {
     updateUserStatus: (status: string) => void
     status: string
     authorizedUserId: number
+    savePhoto:  any
 }
 type PathParamsType = {
     userId: string
@@ -26,20 +33,25 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<PropsType, {}> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = +this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
-            if(!userId){
+            if (!userId) {
                 this.props.history.push('/login')
             }
         }
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-        // usersAPI.getProfile(userId).then(response => {
-        //     this.props.setUserProfile(response.data)
-        // })
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
+    }
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId)
+            this.refreshProfile()
     }
 
     render() {
@@ -49,9 +61,11 @@ class ProfileContainer extends React.Component<PropsType, {}> {
         return (
             <div>
                 <Profile {...this.props}
+                         isOwner={!this.props.match.params.userId}
                          profile={this.props.profile}
                          status={this.props.status}
-                         updateUserStatus={this.props.updateUserStatus}/>
+                         updateUserStatus={this.props.updateUserStatus}
+                         savePhoto ={this.props.savePhoto}/>
             </div>
         )
     }
@@ -60,16 +74,18 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
-}}
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
+    }
+}
 
 // ф-ия compose --- позволяет все обёртки делать последовательными.
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getUserProfile: getUserProfileTC,
         getUserStatus: getUserStatusTC,
-        updateUserStatus: updateUserStatusTC
+        updateUserStatus: updateUserStatusTC,
+        savePhoto
     }), withRouter, withAuthRedirect)(ProfileContainer)

@@ -136,12 +136,4 @@ export const unFollowTC = (userId: string) => async (dispatch: Dispatch) => {
 export const followTC = (userId: string) => async (dispatch: Dispatch) => {
 
     await followUnFollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), followSuccess)
-
-    // dispatch(toggleFollowingProgress(true, userId))
-    //
-    // let data = await apiMethod(userId)
-    // if (data.resultCode === 0) {
-    //     dispatch(actionCreator(userId))
-    // }
-    // dispatch(toggleFollowingProgress(false, userId))
 }

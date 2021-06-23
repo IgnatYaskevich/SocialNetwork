@@ -3,29 +3,41 @@ import s from './ProfileIndo.module.css'
 import {ProfileType, updateUserStatusTC} from "../../../../redux/profile-reducer";
 import userPhoto from "../../../../images/images.png";
 import styles from "../../../Users/users.module.css";
-import {ProfileStatusClass} from "./ProfileStatusClass";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../redux/redux-store";
+import {LinearProgress} from "@material-ui/core";
 
 type PropsType = {
     profile: ProfileType
     status: string
     updateUserStatus: (status: string) => void
-
+    isOwner: boolean
+    savePhoto:  (file: File) => void
 }
 
-const ProfileInfo = (props: PropsType) => {
 
+
+export const ProfileInfo = (props: PropsType) => {
+
+    const statusApp = useSelector<AppStateType>((state) => state.app.statusApp)
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files) {
+            props.savePhoto(e.currentTarget.files[0])
+        }
+    }
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img src={'http://www.meissl.com/media/images/8f24db1f/schweiz.jpg'} alt={'s'}/>*/}
-            {/*</div>*/}
+
+            {statusApp === 'loading' && <LinearProgress/>}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large != null ? props.profile.photos.small : userPhoto}
-                     className={styles.photo} alt={'Avatar'}/>
+                <img src={props.profile.photos.large || userPhoto}
+                     className={styles.profileAvatar} alt={'Avatar'}/>
+                {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 <div>
                     {props.profile.fullName}
                 </div>
+
                 <ProfileStatusWithHooks updateUserStatus={updateUserStatusTC}
                                     status={props.status}/>
                 <div>
@@ -36,4 +48,3 @@ const ProfileInfo = (props: PropsType) => {
     )
 }
 
-export default ProfileInfo;

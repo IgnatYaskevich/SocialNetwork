@@ -2,15 +2,17 @@ import {getAuthUserDataTC} from "./auth-reducer";
 import {AppThunkType} from "./redux-store";
 import {ActionsTypes} from "./Actions";
 
-
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
 
 type initialStateType = {
     initialized: boolean
+    statusApp: RequestStatusType
 }
 export let initialState: initialStateType = {
-    initialized: false
+    initialized: false,
+    statusApp: 'idle'
 }
 
 export const appReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
@@ -21,12 +23,16 @@ export const appReducer = (state: initialStateType = initialState, action: Actio
                 initialized: true
             }
         }
+        case 'SET_NEW_STATUS': {
+            return {...state, statusApp: action.status}
+        }
         default:
             return state
     }
 }
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS} as const)
+export const setNewStatus = (status: RequestStatusType) => ({type: 'SET_NEW_STATUS', status} as const)
 
 
 //Thunk
@@ -36,6 +42,4 @@ export const initializeAppTC = (): AppThunkType => (dispatch) => {
     Promise.all([promise]).then(() => {
         dispatch(initializedSuccess())
     })
-    //
-    // dispatch(initializedSuccess(false))
 }

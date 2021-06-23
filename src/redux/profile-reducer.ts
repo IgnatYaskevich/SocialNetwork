@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {ActionsTypes} from "./Actions";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {setNewStatus} from "./AppReducer";
 
 
 export type PostsType = {
@@ -41,6 +42,7 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 
 type InitialStateType = {
     posts: PostsType[]
@@ -58,7 +60,7 @@ let initialState: InitialStateType = {
     ],
     newPostText: '',
     profile: null,
-    status: ''
+    status: '',
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -83,6 +85,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case SET_STATUS : {
             return {...state, status: action.status}
         }
+        case SAVE_PHOTO_SUCCESS : {
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
+        }
         default :
             return state
     }
@@ -92,6 +97,7 @@ export const addPostAC = (newPostText: string) => ({type: ADD_POST, newPostText}
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
+export const setPhotoSuccess = (photos: any) => ({type: SAVE_PHOTO_SUCCESS, photos} as const)
 
 
 export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
@@ -112,6 +118,15 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
     let response = await profileAPI.upDateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(response.data))
+    }
+
+}
+export const savePhoto = (file: any) => async (dispatch: Dispatch) => {
+    dispatch(setNewStatus('loading'))
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(setPhotoSuccess(response.data.data.photos))
+        dispatch(setNewStatus('idle'))
     }
 
 }
